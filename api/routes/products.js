@@ -14,7 +14,21 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+// Filter files to control which files should be uploaded
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    // Accept file
+    cb(null, true);
+  } else {
+    // Reject File
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter
+});
 
 // Routes which handle requests
 router.get('/', async (req, res, next) => {
@@ -22,7 +36,7 @@ router.get('/', async (req, res, next) => {
     const getAllProducts = await Product.find();
 
     if (getAllProducts.length === 0)
-      return res.status(400).json({ message: 'No hay productos registrados'})
+      return res.status(400).json({ message: 'No hay productos registrados'});
 
     res.status(200).json({ products: getAllProducts });
   } catch(err) {
