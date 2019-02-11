@@ -7,7 +7,7 @@ import mongoose   from 'mongoose';
 import productRoutes from './routes/products'
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.API_PORT;
 
 // Config MongoDB
 const dbURI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
