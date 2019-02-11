@@ -1,9 +1,22 @@
 import express from 'express';
 import Product from '../db/models/product'
-
+import multer  from 'multer';
 
 const router = express.Router();
 
+// Config multer to upload images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage });
+
+// Routes which handle requests
 router.get('/', async (req, res, next) => {
   try {
     const getAllProducts = await Product.find();
@@ -17,14 +30,15 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('productImage'), async (req, res, next) => {
   try {
+    console.log(req.file);
     const newProduct = {
       name: req.body.name,
       price: req.body.price
     }
 
-    const isProductExist = await Product.findOne(product);
+    const isProductExist = await Product.findOne(newProduct);
 
     if (isProductExist)
       return res.status(400).json({ message: 'El producto ya esta registrado'});
