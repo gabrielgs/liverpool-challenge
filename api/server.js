@@ -9,9 +9,19 @@ import productRoutes from './routes/products'
 const app = express();
 const port = process.env.PORT;
 
+// Config MongoDB
+const dbURI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+mongoose.connect(
+  dbURI,
+  {useNewUrlParser: true, useCreateIndex: true}
+);
+
+//Allow JSON and URL encoded
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
+app.use('/uploads', express.static('uploads'));
 
 // Allow CORS
 app.use((req, res, next) => {
@@ -46,7 +56,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-// Init Server
+// Initialize Server
 app.listen(port, () => {
   console.log(`Api is running on PORT ${port}.`);
 });
