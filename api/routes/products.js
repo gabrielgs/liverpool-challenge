@@ -49,7 +49,8 @@ router.post('/', upload.single('productImage'), async (req, res, next) => {
     console.log(req.file);
     const newProduct = {
       name: req.body.name,
-      price: req.body.price
+      price: req.body.price,
+      productImage: req.file.path
     }
 
     const isProductExist = await Product.findOne(newProduct);
