@@ -58,15 +58,11 @@ exports.products_get_product = async (req, res, next) => {
 exports.products_update_product = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    let updateFields = {};
-
-    for (const field of req.body) {
-      updateFields[field.propName] = field.value;
-    }
+    const { name, price } = req.body;
 
     const updateProduct = await Product.findOneAndUpdate(
       { _id: productId },
-      { $set: updateFields },
+      { $set: { name, price } },
       { new: true }
     );
 
