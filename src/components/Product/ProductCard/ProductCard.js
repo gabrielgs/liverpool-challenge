@@ -1,15 +1,20 @@
 import React from 'react';
+import {
+  ProductCardImage,
+  ProductCardFigure,
+  ProductCardWrapper
+} from './ProductCard.styled'
 
 const ProductCard = ({ product, onEdit, onDelete }) => {
   return (
-    <article>
-      <figure>
-        <img src={`${product.productImage}`} alt="product" />
+    <ProductCardWrapper>
+      <ProductCardFigure>
+        <ProductCardImage src={`${product.productImage}`} alt="product" />
         <figcaption>
           <h4>{product.name}</h4>
           <span>{product.price}</span>
         </figcaption>
-      </figure>
+      </ProductCardFigure>
       <div>
         <span
           style={{cursor: 'pointer'}}
@@ -18,7 +23,7 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
           style={{cursor: 'pointer'}}
           onClick={onDelete}>Eliminar</span>
       </div>
-    </article>
+    </ProductCardWrapper>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard'
+import ProductGrid from './ProductList.styled';
 
 const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct }) => {
   let products;
@@ -18,9 +19,9 @@ const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct }) => {
   }
 
   return (
-    <div>
+    <ProductGrid>
       {products}
-    </div>
+    </ProductGrid>
   );
 };
 
