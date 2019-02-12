@@ -3,7 +3,9 @@ import { Route, Switch, Link }    from 'react-router-dom';
 import AdminProducts from './containers/Admin/AdminProducts/AdminProducts'
 import AdminCreateProduct from './containers/Admin/AdminCreateProduct/AdminCreateProduct'
 import AdminEditProduct from './containers/Admin/AdminEditProduct/AdminEditProduct'
+import Store from './containers/Store/Store';
 import logo from './logo.svg';
+
 
 class App extends Component {
   render() {
@@ -14,6 +16,7 @@ class App extends Component {
           <Route path="/admin/productos" component={AdminProducts}/>
           <Route path="/admin/crear-producto" component={AdminCreateProduct}/>
           <Route path="/admin/editar-producto/:productId" component={AdminEditProduct}/>
+          <Route path="/" component={Store}/>
         </Switch>
       </div>
     );
