@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onEdit, onDelete }) => {
   return (
     <article>
       <figure>
@@ -10,6 +10,14 @@ const ProductCard = ({ product }) => {
           <span>{product.price}</span>
         </figcaption>
       </figure>
+      <div>
+        <span
+          style={{cursor: 'pointer'}}
+          onClick={onEdit}>Editar</span>
+        <span
+          style={{cursor: 'pointer'}}
+          onClick={onDelete}>Eliminar</span>
+      </div>
     </article>
   );
 };

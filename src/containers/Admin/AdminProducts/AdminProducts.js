@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ProductList from '../../../components/Product/ProductList/ProductList'
 
@@ -26,15 +27,36 @@ class AdminProducts extends Component {
       .catch( err => console.log(err.response) );
   }
 
+  handlerClickEdit = productId => {
+    const { history } = this.props
+
+    history.push(`/admin/editar-producto/${productId}`);
+
+    console.log(productId);
+  }
+
+  handlerDeleteProduct = productId => {
+    const url = `${BASE_URL}/products/${productId}`
+    axios.delete(url)
+      .then(res => {
+        console.log(res.data);
+        this.fetchProducts();
+      })
+      .catch(err => console.log(err.response));
+  }
+
   render () {
     const { products } = this.state
     return (
       <section>
         <header>
           <h1>Productos</h1>
-          <a href="#Nuevo Producto">Nuevo Producto</a>
+          <Link to="/admin/crear-producto">Nuevo Producto</Link>
         </header>
-        <ProductList data={products}/>
+        <ProductList
+          data={products}
+          handlerClickEdit={this.handlerClickEdit}
+          handlerDeleteProduct={this.handlerDeleteProduct}/>
       </section>
     );
   }
