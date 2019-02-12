@@ -19,7 +19,7 @@ exports.products_create_product = async (req, res, next) => {
     const newProduct = {
       name: req.body.name,
       price: req.body.price,
-      productImage: req.file.path
+      productImage: `http://localhost:8020/${req.file.path}`
     }
 
     const isProductExist = await Product.findOne(newProduct);
