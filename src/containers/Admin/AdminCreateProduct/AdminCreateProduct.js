@@ -92,7 +92,7 @@ class AdminCreateProduct extends Component {
                   onChange={this.handlerInputChange}/>
               </FormGroup>
               <ButtonGroup>
-                <ButtonSubmit type="submit" value="Crear Token"/>
+                <ButtonSubmit type="submit" value="Crear Producto"/>
                 <ButtonCancel as={Link} to="/admin/productos">Cancelar</ButtonCancel>
               </ButtonGroup>
             </form>

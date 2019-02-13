@@ -4,9 +4,6 @@ exports.products_get_all = async (req, res, next) => {
   try {
     const getAllProducts = await Product.find();
 
-    if (getAllProducts.length === 0)
-      return res.status(400).json({ message: 'No hay productos registrados' });
-
     res.status(200).json({ products: getAllProducts });
   } catch (err) {
     res.status(500).json({ error: err });
