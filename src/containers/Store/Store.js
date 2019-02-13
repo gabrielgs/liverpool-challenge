@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import ProductList from '../../components/Product/ProductList/ProductList';
 import axios from 'axios';
 
+import {
+  NavWrapper ,
+  NavContainer,
+  NavLink,
+  InputSearch,
+  ButtonSearch
+} from './Store.styled';
+
 class Store extends Component {
   state = {
     products: [],
@@ -18,12 +26,14 @@ class Store extends Component {
   }
 
   handleSearch = () => {
-    const { query } = this.state
+    let { query } = this.state
     const LIVERPOOL_API = `https://www.liverpool.com.mx/tienda/?s=${query}&d3106047a194921c01969dfdec083925=json`;
 
     console.log(query, LIVERPOOL_API);
+    console.log(`El query ${query}`);
 
-    axios
+    if (!!query) {
+      axios
       .get(LIVERPOOL_API)
       .then(res => {
         const records = res.data.contents[0].mainContent[3].contents[0].records;
@@ -48,27 +58,24 @@ class Store extends Component {
         this.setState({
           products
         });
-
-        console.log(products);
       })
       .catch(err => console.log(err.response));
+    }
   }
 
   render() {
     const { products } = this.state
     return (
       <>
-        <nav>
-          <div>
-            <input type="text" placeholder="Buscar" onChange={this.inputChange}/>
-            <button onClick={this.handleSearch}>Buscar</button>
-          </div>
-          <Link to="/admin/productos">Administrador</Link>
-        </nav>
+        <NavWrapper>
+          <NavContainer>
+            <InputSearch type="text" placeholder="Buscar" onChange={this.inputChange}/>
+            <ButtonSearch onClick={this.handleSearch}>Buscar</ButtonSearch>
+          </NavContainer>
+          <NavLink as={Link} to="/admin/productos">Administrador</NavLink>
+        </NavWrapper>
         <main>
-          <section>
-            <ProductList data={products}/>
-          </section>
+          <ProductList data={products}/>
         </main>
       < />
     );

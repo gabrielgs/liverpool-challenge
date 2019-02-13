@@ -1,8 +1,8 @@
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard'
-import ProductGrid from './ProductList.styled';
+import {ProductWrapper, ProductGrid} from './ProductList.styled';
 
-const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct }) => {
+const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct, actions }) => {
   let products;
 
   if (data.length > 0) {
@@ -11,17 +11,18 @@ const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct }) => {
         <ProductCard
           product={product}
           onEdit={() => handlerClickEdit(product._id)}
-          onDelete={() => handlerDeleteProduct(product._id)}/>
+          onDelete={() => handlerDeleteProduct(product._id)}
+          actions={actions}/>
       );
     });
-  } else {
-    products = 'Productos no encontrados'
   }
 
   return (
-    <ProductGrid>
-      {products}
-    </ProductGrid>
+    <ProductWrapper>
+      <ProductGrid>
+        {products}
+      </ProductGrid>
+    </ProductWrapper>
   );
 };
 

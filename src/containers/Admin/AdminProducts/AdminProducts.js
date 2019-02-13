@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ProductList from '../../../components/Product/ProductList/ProductList'
 
+import {
+  AdminProductsNav,
+  AdminProductsNavContainer,
+  AdminProductsLink,
+  AdminProductsHeader,
+  AdminProductsHeaderContainer,
+  AdminProductsButton
+} from './AdminProducts.styled';
+
 const BASE_URL = 'http://localhost:8020/api/v1';
 
 class AdminProducts extends Component {
@@ -48,16 +57,26 @@ class AdminProducts extends Component {
   render () {
     const { products } = this.state
     return (
-      <section>
-        <header>
-          <h1>Productos</h1>
-          <Link to="/admin/crear-producto">Nuevo Producto</Link>
-        </header>
-        <ProductList
-          data={products}
-          handlerClickEdit={this.handlerClickEdit}
-          handlerDeleteProduct={this.handlerDeleteProduct}/>
-      </section>
+      <>
+        <AdminProductsNav>
+          <AdminProductsNavContainer>
+            <AdminProductsLink as={Link} to="/">Buscar Productos</AdminProductsLink>
+          </AdminProductsNavContainer>
+        </AdminProductsNav>
+        <AdminProductsHeader>
+          <AdminProductsHeaderContainer>
+            <h1>Productos</h1>
+            <AdminProductsButton as={Link} to="/admin/crear-producto">Nuevo Producto</AdminProductsButton>
+          </AdminProductsHeaderContainer>
+        </AdminProductsHeader>
+        <main>
+          <ProductList
+            data={products}
+            handlerClickEdit={this.handlerClickEdit}
+            handlerDeleteProduct={this.handlerDeleteProduct}
+            actions={true}/>
+        </main>
+      </>
     );
   }
 }

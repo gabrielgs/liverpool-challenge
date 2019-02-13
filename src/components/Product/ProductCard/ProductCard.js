@@ -2,27 +2,33 @@ import React from 'react';
 import {
   ProductCardImage,
   ProductCardFigure,
-  ProductCardWrapper
+  ProductCardWrapper,
+  ProductCardImageCaption,
+  ProductCardActions
 } from './ProductCard.styled'
 
-const ProductCard = ({ product, onEdit, onDelete }) => {
+const ProductCard = ({ product, onEdit, onDelete, actions }) => {
   return (
     <ProductCardWrapper>
       <ProductCardFigure>
         <ProductCardImage src={`${product.productImage}`} alt="product" />
-        <figcaption>
+        <ProductCardImageCaption>
           <h4>{product.name}</h4>
-          <span>{product.price}</span>
-        </figcaption>
+          <span>${product.price}</span>
+        </ProductCardImageCaption>
       </ProductCardFigure>
-      <div>
-        <span
-          style={{cursor: 'pointer'}}
-          onClick={onEdit}>Editar</span>
-        <span
-          style={{cursor: 'pointer'}}
-          onClick={onDelete}>Eliminar</span>
-      </div>
+      {
+        actions && (
+          <ProductCardActions>
+            <span
+              style={{cursor: 'pointer'}}
+              onClick={onEdit}>Editar</span>
+            <span
+              style={{cursor: 'pointer'}}
+              onClick={onDelete}>Eliminar</span>
+          </ProductCardActions>
+        )
+      }
     </ProductCardWrapper>
   );
 };
