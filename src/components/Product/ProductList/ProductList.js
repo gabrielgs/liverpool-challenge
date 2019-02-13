@@ -9,6 +9,7 @@ const ProductList = ({ data, handlerClickEdit, handlerDeleteProduct, actions }) 
     products = data.map(product => {
       return (
         <ProductCard
+          key={product._id}
           product={product}
           onEdit={() => handlerClickEdit(product._id)}
           onDelete={() => handlerDeleteProduct(product._id)}
