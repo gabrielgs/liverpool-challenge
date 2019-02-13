@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import {
+  Main,
+  Header,
+  HeaderTitle,
+  Section,
+  FormWrapper,
+  FormGroup,
+  Input,
+  Label,
+  ButtonGroup,
+  ButtonSubmit,
+  ButtonCancel
+} from '../Shared.styled';
 const BASE_URL = 'http://localhost:8020/api/v1';
 
 class AdminEditProduct extends Component {
@@ -39,6 +52,9 @@ class AdminEditProduct extends Component {
     axios.patch(url, {name, price})
       .then(res => {
         console.log(res.data);
+        const { history } = this.props
+
+        history.push(`/admin/productos`);
       })
       .catch(err => console.log(err.response));
   }
@@ -61,39 +77,39 @@ class AdminEditProduct extends Component {
   render() {
     const { product } = this.state;
     return (
-      <main>
-        <header>
-          <h1>Editar Producto</h1>
-        </header>
-        <section>
-          <div>
+      <Main>
+        <Header>
+          <HeaderTitle>Editar Producto</HeaderTitle>
+        </Header>
+        <Section>
+          <FormWrapper>
             <form onSubmit={this.handlerSubmit}>
-              <div>
-                <label htmlFor="">Nombre</label>
-                <input
+              <FormGroup>
+                <Label htmlFor="">Nombre</Label>
+                <Input
                   defaultValue={product.name}
                   name="name"
                   type="text"
                   placeholder="Xbox One"
                   onChange={this.handlerInputChange}/>
-              </div>
-              <div>
-                <label htmlFor="">Precio</label>
-                <input
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="">Precio</Label>
+                <Input
                   defaultValue={product.price}
                   name="price"
                   type="text"
                   placeholder="1200.99"
                   onChange={this.handlerInputChange}/>
-              </div>
-              <div>
-                <Link to="/admin/productos">Cancelar</Link>
-                <input type="submit" value="Guardar"/>
-              </div>
+              </FormGroup>
+              <ButtonGroup>
+                <ButtonSubmit type="submit" value="Guardar"/>
+                <ButtonCancel as={Link} to="/admin/productos">Cancelar</ButtonCancel>
+              </ButtonGroup>
             </form>
-          </div>
-        </section>
-      </main>
+          </FormWrapper>
+        </Section>
+      </Main>
     );
   }
 }

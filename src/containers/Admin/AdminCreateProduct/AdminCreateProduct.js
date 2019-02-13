@@ -2,6 +2,21 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import {
+  Main,
+  Header,
+  HeaderTitle,
+  Section,
+  FormWrapper,
+  FormGroup,
+  Input,
+  InputFile,
+  Label,
+  ButtonGroup,
+  ButtonCancel,
+  ButtonSubmit
+} from '../Shared.styled';
+
 const BASE_URL = 'http://localhost:8020/api/v1';
 
 class AdminCreateProduct extends Component {
@@ -25,7 +40,7 @@ class AdminCreateProduct extends Component {
   handlerSubmit = event => {
     const url = `${BASE_URL}/products`;
     const { name, price, productImage } = this.state;
-    const formData = new FormData()
+    const formData = new FormData();
 
     event.preventDefault();
 
@@ -34,50 +49,56 @@ class AdminCreateProduct extends Component {
     formData.append('productImage', productImage, productImage.name);
 
     axios.post(url, formData)
-      .then( res => console.log(res.data))
+      .then( res => {
+        console.log(res.data)
+        const { history } = this.props
+
+        history.push(`/admin/productos`);
+
+      })
       .catch( err => console.log(err.response));
   }
 
   render () {
     return (
-      <main>
-        <header>
-          <h1>Crear Producto</h1>
-        </header>
-        <section>
-          <div>
+      <Main>
+        <Header>
+          <HeaderTitle>Crear Producto</HeaderTitle>
+        </Header>
+        <Section>
+          <FormWrapper>
             <form onSubmit={this.handlerSubmit}>
-              <div>
-                <label htmlFor="">Nombre</label>
-                <input
+              <FormGroup>
+                <Label htmlFor="">Nombre</Label>
+                <Input
                   name="name"
                   type="text"
                   placeholder="Xbox One"
                   onChange={this.handlerInputChange}/>
-              </div>
-              <div>
-                <label htmlFor="">Precio</label>
-                <input
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="">Precio</Label>
+                <Input
                   name="price"
                   type="text"
                   placeholder="1200.99"
                   onChange={this.handlerInputChange}/>
-              </div>
-              <div>
-                <label htmlFor="">Imagen</label>
-                <input
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="">Imagen</Label>
+                <InputFile
                   name="productImage"
                   type="file"
                   onChange={this.handlerInputChange}/>
-              </div>
-              <div>
-                <Link to="/admin/productos">Cancelar</Link>
-                <input type="submit" value="Crear Token"/>
-              </div>
+              </FormGroup>
+              <ButtonGroup>
+                <ButtonSubmit type="submit" value="Crear Token"/>
+                <ButtonCancel as={Link} to="/admin/productos">Cancelar</ButtonCancel>
+              </ButtonGroup>
             </form>
-          </div>
-        </section>
-      </main>
+          </FormWrapper>
+        </Section>
+      </Main>
     );
   }
 };
